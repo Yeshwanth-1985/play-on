@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<style type="text/css">
+  .songstext {
+  font-family: fantasy;
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+}
+.box:hover {
+  transform: scale(1.2);
+  box-shadow: 4px black;
+} 
+</style>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{url_for('static' , filename='img/all.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>About Us</h1>
+            <span class="subheading">Want to create a user friendly web application.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class="zone boxsize">
+<div class="box "><img src="{{url_for ('static', filename='img/koushik.jpg')}}"><div class="songstext"> Koushik </div></div>
+<div class="box "><img src="{{url_for ('static', filename='img/yeshwanth.jpg')}}"><div class="songstext"> Yeshwanth </div></div>
+<div class="box "><img src="{{url_for ('static', filename='img/yadav.jpg')}}"><div class="songstext"> Yadav </div></div>
+<div class="box "><img src="{{url_for ('static', filename='img/prashanth.jpg')}}"><div class="songstext"> Prashanth </div></div>
+</div>
+
+{% endblock %}

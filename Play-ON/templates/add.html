@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>PLAY - ON, Start Music</title>
+   <link rel="shortcut icon" href="{{ url_for ('static', filename='favicon_io/favicon-main.png') }}">
+
+  <!-- Bootstrap core CSS -->
+ <link href=" {{ url_for ('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+    <link href=" {{ url_for ('static', filename='vendor/fontawesome-free/css/all.min.css') }} " rel="stylesheet" type="text/css">
+
+   <link href="{{ url_for ('static', filename='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic')}}" rel='stylesheet' type='text/css'>
+
+  <link href="{{ url_for ('static', filename='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800') }}" rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for ('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+ <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/boot.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/trycss.css')}}">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+             <a class="nav-link">Hello, {{adminname}}</a>
+          </li>
+        </ul>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard//{{adminname}}">Dashboard</a>
+          </li>
+           {% if adminname == params["mainadmin"] %}
+          <li class="nav-item">
+            <a class="nav-link" href="/addadmin/{{adminname}}">Add Admin</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+          <div class="dropdown">
+  <button class="dropbtn">MyAccount <i class="fa fa-caret-down"></i></button>
+  <div class="dropdown-content">
+     <a class="nav-link" href="/adminpassword/{{adminname}}">Change Password <i class='fas fa-file-signature' style="font-size: 1.3em;"></i></a>
+    <a class="nav-link" href="/adminlogout/{{adminname}}">Logout Session <i class="fas fa-sign-out-alt" style="font-size: 1.4em;"></i></a>
+  </div>
+</div>
+   </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="masthead" style="background-image: url(  '{{ url_for ('static', filename='img/home.jpg')}}'  )">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>PLAY - ON Admin Panel</h1>
+            <span class="subheading">Manage your songs and edit them</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<hr>
+<body class="text-center">
+<h2> Add Songs </h2>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+<form name="sentMessage" id="contactForm" enctype=multipart/form-data action="/add/{{adminname}}" align="center" method="post" enctype="multipart/form-data"novalidate>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Song Name</label>
+              <input type="text" class="form-control" placeholder="song name" id="song_name" name='song_name' required data-validation-required-message="Please enter the song name.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Movie Name</label>
+              <input type="text" class="form-control" placeholder="movie name" id="movie_name" name='movie_name' required data-validation-required-message="Please enter the movie name.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Slug</label>
+              <input type="text" class="form-control" placeholder="slug" id="slug" name='slug' required data-validation-required-message="Please enter the slug.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Genre</label>
+              <input type="text" class="form-control" placeholder="genre" id="genre" name='genre' required data-validation-required-message="Please enter the genre.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Lyrics</label>
+              <textarea class="form-control" row=10 placeholder="lyrics" id="lyrics" name='lyrics' required data-validation-required-message="Please enter the lyrics.">Lyrics
+              </textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Singers Names</label>
+              <input type="text" class="form-control" placeholder="singers names" id="singers" name='singers' required data-validation-required-message="Please enter the singers names.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Music Director</label>
+              <input type="text" class="form-control" placeholder="music director name" id="director" name='director' required data-validation-required-message="Please enter the music director name.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>Lyricist</label>
+              <input type="text" class="form-control" placeholder="lyricist name" id="lyricist" name='lyricist' required data-validation-required-message="Please enter the lyricist name.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Upload Song file</label>
+              <input type="file" accept=".mp3" id="song_file" name=file required>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Upload Image file</label>
+              <input type="file" accept="image/*" id="image_file" name=file2 required>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+        </form>
+      </body>
+       </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="{{params['tw_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{params['fb_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{params['gb_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Play-ON 2021</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for ('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for ('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{{ url_for ('static', filename='js/clean-blog.min.js')}}"></script>
+
+</body>
+
+</html>
+
+ 

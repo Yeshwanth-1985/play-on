@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>music player</title>
+  <link rel="shortcut icon" href="{{ url_for ('static', filename='favicon_io/favicon-main.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/playercss.css')}}">
+    <style type="text/css">
+      /* song image */
+      .triviabuffer {
+        height: 10px;
+      }
+.left img{
+  height: 70%;
+  width: 80%;
+  border-radius: 15px;
+  box-shadow: 1px 0px 20px 12px rgba(240,240,240,0.2);
+}
+.left .volume{
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+      .right #title{
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  width: 80%;
+  transform: translateX(-50%);
+  text-transform: capitalize;
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+}
+#trivia {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  background-color: #FF8A65;
+  border-radius: 5px;
+}
+    </style>
+</head>
+
+<body id="mybody">
+
+  <div class="main">
+  	<p id="logo"><i class="fa fa-music"></i>Music</p>
+    
+    <!--- left part --->
+     <div class="left">
+
+      <!--- song img --->
+      <img id="track_image">
+         <div class="volume">
+            <p id="volume_show">90</p>
+            <i class="fa fa-volume-up" aria-hidden="true" onclick="mute_sound()" id="volume_icon"></i>
+            <input type="range" min="0" max="100" value="90" onchange="volume_change()" id="volume">  
+         </div>
+
+     </div>
+ 
+
+     <!--- right part --->
+  	 <div class="right">
+
+        <div class="show_song_no">
+          <p id="present">1</p>
+          <p>/</p>
+          <p id="total">5</p>
+        </div>
+
+       <!--- song title & artist name --->
+      <p id="title">title.mp3</p>
+      <p id="artist">Artist name</p>
+      <a id="trivia" target="_blank" href="/songtrivia/{{username}}"><p>Song Trivia</p></a>
+      <!--- middle part --->
+      <div class="triviabuffer">
+      </div>
+  	 	<div class="middle">
+  	       <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+      	   <button onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
+  	       <button onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+           <a href="" id="downloadlink" download><button><i class="fa fa-download" aria-hidden="true"></i></button></a>
+  	   </div>
+
+       <!--- song duration part --->
+        <div class="duration">
+           <input type="range" min="0" max="100" value="0" id="duration_slider" onchange="change_duration()">
+        </div>
+           <button id="auto" onclick="autoplay_switch()">Auto play <i class="fa fa-circle-o-notch" aria-hidden="true"></i></button>
+  	     </div>
+
+
+  </div>
+  <!--- Add javascript file-->
+   <script type="text/javascript">
+    
+let previous = document.querySelector('#pre');
+let play = document.querySelector('#play');
+let next = document.querySelector('#next');
+let title = document.querySelector('#title');
+let recent_volume= document.querySelector('#volume');
+let volume_show = document.querySelector('#volume_show');
+let slider = document.querySelector('#duration_slider');
+let show_duration = document.querySelector('#show_duration');
+let track_image = document.querySelector('#track_image');
+let auto_play = document.querySelector('#auto');
+let present = document.querySelector('#present');
+let total = document.querySelector('#total');
+let artist = document.querySelector('#artist');
+let down = document.querySelector('#downloadlink');
+let body = document.getElementById('mybody');
+let trivia = document.querySelector('#trivia');
+
+var username = '{{username}}';
+var len = '{{listlen}}';
+
+console.log(username);
+let timer;
+let autoplay = 0;
+
+let index_no = '{{index}}';
+let temp_index = index_no;
+let Playing_song = false;
+let track = document.createElement('audio');
+
+var i=0 ;
+var All_song = [];
+ {% for song in songs %}
+ temp = {
+    "song_id": '{{song.sid}}',
+    "song_name" : '{{song.song_name}}',
+    "movie_name": '{{song.movie_name}}',
+    "genre": '{{song.genre}}',
+    "song_location": '{{song.song_location}}',
+    "image_location": '{{song.image_location}}'
+  };
+  All_song.push(temp);
+  i++;
+   {% endfor %}
+
+ function load_track(index_no){
+  clearInterval(timer);
+  reset_slider();
+  console.log(index_no);
+  track.src = "{{url_for('static', filename='')}}" + '/songs/' + All_song[index_no].song_location;
+  title.innerHTML = All_song[index_no].song_name; 
+    artist.innerHTML = All_song[index_no].movie_name;
+    down.setAttribute("href", track.src);
+    trivia.setAttribute("href", "/songtrivia/" + '{{username}}' +"/" + All_song[index_no].song_id)
+    track_image.src = "{{url_for('static', filename='')}}" + '/songpics/' + All_song[index_no].image_location;
+    if(index_no % 2 ==0)
+      body.style.background = "linear-gradient(to right, #75a3a3, #334d4d)";
+    else
+      body.style.background = "linear-gradient(to right, #009999, #004d4d)";
+      autoplay = 0;
+       auto_play.style.background = "rgba(255,255,255,0.2)";
+    track.load();
+  timer = setInterval(range_slider ,1000);
+  total.innerHTML = All_song.length;
+  present.innerHTML = parseInt(index_no) + 1;
+}
+
+load_track(index_no);
+
+
+//mute sound function
+function mute_sound(){
+  track.volume = 0;
+  volume.value = 0;
+  volume_show.innerHTML = 0;
+}
+
+
+// checking.. the song is playing or not
+ function justplay(){
+  if(Playing_song==false){
+    playsong();
+
+  }else{
+    pausesong();
+  }
+ }
+
+
+// reset song slider
+ function reset_slider(){
+  slider.value = 0;
+ }
+
+// play song
+function playsong(){
+  track.play();
+  Playing_song = true;
+  play.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
+}
+
+//pause song
+function pausesong(){
+  track.pause();
+  Playing_song = false;
+  play.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+}
+
+
+// next song
+function next_song(){
+  if(index_no < (All_song.length - 1)){
+    index_no = parseInt(index_no) + 1;
+    load_track(index_no);
+    playsong();
+  }else{
+    index_no = 0;
+    load_track(index_no);
+    playsong();
+
+  }
+}
+
+
+// previous song
+function previous_song(){
+  if(index_no > 0){
+    index_no = parseInt(index_no) - 1;
+    load_track(index_no);
+    playsong();
+
+  }else{
+    index_no = All_song.length-1;
+    load_track(index_no);
+    playsong();
+  }
+}
+
+
+// change volume
+function volume_change(){
+  volume_show.innerHTML = recent_volume.value;
+  track.volume = recent_volume.value / 100;
+}
+
+// change slider position 
+function change_duration(){
+  slider_position = track.duration * (slider.value / 100);
+  track.currentTime = slider_position;
+}
+
+// autoplay function
+function autoplay_switch(){
+  if (autoplay==1){
+       autoplay = 0;
+       auto_play.style.background = "rgba(255,255,255,0.2)";
+  }else{
+       autoplay = 1;
+       auto_play.style.background = "#FF8A65";
+  }
+}
+
+
+function range_slider(){
+  let position = 0;
+        
+        // update slider position
+    if(!isNaN(track.duration)){
+       position = track.currentTime * (100 / track.duration);
+       slider.value =  position;
+        }
+
+       
+       // function will run when the song is over
+       if(track.ended){
+         play.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+           if(autoplay==0){
+           index_no = parseInt(index_no) + 1;
+           load_track(index_no);
+           playsong();
+           }
+           else {
+            load_track(index_no);
+           playsong();
+           }
+
+      }
+     } 
+
+  </script>
+</body>
+</html>

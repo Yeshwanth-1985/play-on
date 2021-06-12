@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flask project</title>
+</head>
+<body>
+<p>hii iam learning flask using python</p>
+{% for user in users %}
+  <li><a href="{{ user.url }}">{{ user.username }}</a></li>
+{% endfor %}
+<img src="{{ url_for ('static' , filename = "1.jpg")}}">
+</body>
+</html>

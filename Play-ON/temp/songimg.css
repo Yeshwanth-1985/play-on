@@ -1,0 +1,40 @@
+html {
+	width: 100%;
+	height: 100%;
+}
+body {
+	margin: auto 0;
+	width: 100%;
+	height: 100%;
+	background-color: #444;
+}
+.songmain {
+	height: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.zone {
+	border: 2px solid white;
+}
+.collect {
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	margin: 20px;
+	display: flex;
+	align-content: space-around;
+	justify-content: center;
+}
+.collect > img {
+	width: 100%;
+	height: 100%;
+}
+.songtext {
+	color: white;
+	font-size: 2em;
+	width: 85vh;
+}
+audio {
+	width: 60%;
+}

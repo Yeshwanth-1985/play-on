@@ -1,0 +1,55 @@
+.userdetails {
+	width: 90%;
+}
+#usertable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#usertable td, #usertable th {
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+
+#usertable tr:nth-child(even){background-color: #f2f2f2;}
+
+#usertable tr:hover {background-color: #ddd;}
+
+#usertable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #444;
+  color: white;
+}
+.deletelink {
+	text-decoration: none;
+	padding: 10px;
+	border: 40px;
+	background-color: #444;
+	color: white;
+	border-radius: 10px;
+}
+.deletelink > a:link {
+  color: white;
+  text-decoration: none;
+}
+
+.deletelink > a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.deletelink > a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.deletelink > a:active {
+  color: white;
+  text-decoration: none;
+}
+.deletelink:hover {
+	text-decoration: none;
+	color: white;
+}

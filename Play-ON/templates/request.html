@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url(  '{{ url_for ('static', filename='img/home.jpg')}}'  )">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>PLAY - ON Admin Panel</h1>
+            <span class="subheading">Search the songs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<hr>
+<body class="text-center">
+<h2> Search Songs by lyrics </h2>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+<form name="sentMessage" id="contactForm" action="/search" align="center" method="post" novalidate>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Search lyrics</label>
+              <input type="text" class="form-control" placeholder="search lyrics" id="search" name='search_string' required data-validation-required-message="Please enter the string.">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+        </form>
+      </body>
+       </div>
+    </div>
+  </div>
+
+{% endblock %}
+

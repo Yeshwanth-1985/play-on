@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url(  '{{ url_for ('static', filename='img/home.jpg')}}'  )">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Users Profile</h1>
+            <span class="subheading">Edit your data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<hr>
+<body class="text-center">
+
+<a class="mybtn" href="/editprofile/{{username}}">Edit Profile</a>
+<br><br>
+<h2> Your Profile </h2>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+<form name="sentMessage" id="contactForm" action="/" align="center" method="post" novalidate>
+          <fieldset disabled="disabled">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Full Name</label>
+              <input type="text" class="form-control" placeholder="John Smith" id="fullname" name='fullname' required data-validation-required-message="Please enter your fullname." value="Fullname: {{user.fullname}}">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>User Name</label>
+              <input type="text" class="form-control" placeholder="Smith@123" id="username" name='username' required data-validation-required-message="Please enter your username." value="Username: {{user.username}}">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Email</label>
+              <input type="email" class="form-control" placeholder="movie name" id="email" name='email' required data-validation-required-message="Please enter your email." value="Email: {{user.email}}">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Gender</label>
+              <input type="text" class="form-control" placeholder="Gender" id="gender" name='gender' required data-validation-required-message="Please enter your gender" value="Gender: {{user.gender}}">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Date of Birth</label>
+              <input type="text" class="form-control" placeholder="Smith@123" id="dob" name='username' required data-validation-required-message="Please enter your username." value="Date of birth: {{user.dob}}">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br><!--
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>-->
+          </fieldset>
+        </form>
+      </body>
+       </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+ 

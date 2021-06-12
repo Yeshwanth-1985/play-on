@@ -1,0 +1,17 @@
+.changepass {
+	width: 50%;
+}
+.forcontainer {
+	border: 2px solid #444;
+	padding: 10px;
+	font-size: 0.8em !important;
+}
+label {
+	font-family: fantasy !important;
+}
+.mybut {
+	border-radius: 15px;
+	padding: 10px;
+	color: white;
+	background-color: #444;
+}

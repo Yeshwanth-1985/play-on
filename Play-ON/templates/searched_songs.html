@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url(  '{{ url_for ('static', filename='img/home.jpg')}}'  )">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>PLAY - ON</h1>
+            <span class="subheading">A platform where music enters your heart</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+{% if results %}
+        {% for song in results %}
+        <pre>
+{{song.song_name}} {{song.movie_name}} {{song.genre}} {% set location = '/songs/' + song.song_location %} 
+        <audio controls>
+  <source src="{{url_for('static', filename=location)}}" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+</div>
+</div></div>
+       <hr>
+        {% endfor %}
+  {% else %}
+  <p>No songs matched with the song name you entered, please try with the right song name</p>
+  {% endif %}
+<script type="text/javascript">
+document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+            audios[i].pause();
+            audios[i].currentTime = 0
+        }
+    }
+}, true);
+</script>
+{% endblock %}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>PLAY - ON, Start Music Other Categories</title>
+   <link rel="shortcut icon" href="{{ url_for ('static', filename='favicon_io/favicon-main.png') }}">
+
+  <!-- Bootstrap core CSS -->
+ <link href=" {{ url_for ('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+    <link href=" {{ url_for ('static', filename='vendor/fontawesome-free/css/all.min.css') }} " rel="stylesheet" type="text/css">
+
+   <link href="{{ url_for ('static', filename='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic')}}" rel='stylesheet' type='text/css'>
+
+  <link href="{{ url_for ('static', filename='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800') }}" rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for ('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+ <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/boot.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/trycss.css')}}">
+<style type="text/css">
+  .songstext {
+  font-family: fantasy;
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+}
+.box:hover {
+  transform: rotate(-12deg);
+  box-shadow: 4px black;
+} 
+.formcontrol {
+  font-size: 0.8em;
+  color: white;
+  width: 60%;
+  border: 2px solid black;
+padding: 10px;
+background-color: #444;
+}
+select {
+  width: 150px;
+ font-size: 1.1em !important; 
+ border-radius: 5px;
+}
+.options:hover {
+  background-color: #0066ff !important;
+  color: white !important;
+}
+#keyword{
+  border-radius: 5px !important;
+}
+#keyword:hover {
+  border-color: #0066ff;
+}
+.buttonclass {
+  color: white;
+  width: 60px;
+}
+.blue {
+  background-color: #0066ff;
+}
+</style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top sticky" id="mainNav">
+    <div class="container">
+      <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+             {% if not username %}
+             <a class="nav-link">Hello, Please Login</a>
+             {% else %}
+             <a class="nav-link">Hello, {{username}}</a>
+             {% endif %}
+          </li>
+          {% if not username %}
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Admin Panel</a>
+          </li>
+          {% endif %}
+        </ul>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          {% if not username %}
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/songs/{{username}}">Genres</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/list/{{username}}/others">Artists</a>
+          </li>
+          {% endif %}
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/{{username}}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact/{{username}}">Contact</a>
+          </li>
+          {% if username %}
+          <li class="nav-item">
+          <div class="dropdown">
+  <button class="dropbtn">MyAccount <i class="fa fa-caret-down"></i></button>
+  <div class="dropdown-content">
+  	<a class="nav-link" href="/profile/{{username}}">Profile <i class="fa fa-user" style="font-size: 1.4em;"></i></a>
+     <a class="nav-link" href="/password/{{username}}">Change Password <i class='fas fa-file-signature' style="font-size: 1.4em;"></i></a>
+     <a class="nav-link" href="/deactivate/{{username}}">Deactivate Account</a>
+    <a class="nav-link" href="/logout/{{username}}">Logout Session <i class="fas fa-sign-out-alt" style="font-size: 1.4em;"></i></a>
+  </div>
+</div>
+	 </li>
+   {% endif %}
+          </ul>
+      </div>
+    </div>
+  </nav>
+
+<header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/home.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>PLAY - ON</h1>
+            <span class="subheading">A platform where music enters your heart</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+ <center>
+  <form action="/searchname/{{username}}/1" target="_blank" method="post">
+  <div class="formcontrol">
+  <label for="category"><span style="margin-right: 30px;">Choose Category: </span></label>
+  <select id="category" name="category">
+  <option class="options" value="movie">Movie</option>
+  <option class="options" value="song" selected>Song</option>
+  <option class="options" value="lyrics">Lyrics</option>
+  <option class="options" value="artist">Artist</option>
+</select>
+  <input type="text" name="keyword" id="keyword" placeholder="keyword" required>
+  <button class="buttonclass blue"><i class="fa fa-search"></i></button>
+  </div>
+</form>
+</center>
+   <br><hr>
+
+<div class="zone boxsize">
+<a href="/otherlist/{{username}}/sid/1"><div class="box "><img src="{{url_for ('static', filename='img/sid.jpg')}}"><div class="songstext"> Sid Sriram </div></div></a>
+<a href="/otherlist/{{username}}/anirudh/1"><div class="box "><img src="{{url_for ('static', filename='img/anirudh.jpg')}}"><div class="songstext"> Anirudh </div></div></a>
+<a href="/otherlist/{{username}}/thaman/1"><div class="box "><img src="{{url_for ('static', filename='img/thaman.jpg')}}"><div class="songstext"> SS Thaman </div></div></a>
+<a href="/otherlist/{{username}}/devi/1"><div class="box "><img src="{{url_for ('static', filename='img/devi.jpg')}}"><div class="songstext"> Devi Sri Prasad </div></div></a>
+<a href="/otherlist/{{username}}/ramajo/1"><div class="box "><img src="{{url_for ('static', filename='img/ramajo.jpg')}}"><div class="songstext"> Ramajogaya Sastry </div></div></a>
+<a href="/otherlist/{{username}}/rahman/1"><div class="box "><img src="{{url_for ('static', filename='img/rahman.jpg')}}"><div class="songstext"> AR Rahman </div></div></a>
+<a href="/otherlist/{{username}}/harris/1"><div class="box "><img src="{{url_for ('static', filename='img/harris.jpg')}}"><div class="songstext"> Harris Jayaraj </div></div></a>
+<a href="/otherlist/{{username}}/krish/1"><div class="box "><img src="{{url_for ('static', filename='img/krish.jpg')}}"><div class="songstext"> Krishna Kanth </div></div></a>
+</div>
+  <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="{{params['tw_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{params['fb_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{params['gb_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Play-ON 2021</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for ('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for ('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{{ url_for ('static', filename='js/clean-blog.min.js')}}"></script>
+
+</body>
+
+</html>

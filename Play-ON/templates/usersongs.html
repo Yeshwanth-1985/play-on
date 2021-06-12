@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>PLAY - ON, Start Music {{genre}}</title>
+<link rel="shortcut icon" href="{{ url_for ('static', filename='favicon_io/favicon-main.png') }}">
+  <!-- Bootstrap core CSS -->
+  <link href=" {{ url_for ('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+    <link href=" {{ url_for ('static', filename='vendor/fontawesome-free/css/all.min.css') }} " rel="stylesheet" type="text/css">
+
+   <link href="{{ url_for ('static', filename='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic')}}" rel='stylesheet' type='text/css'>
+
+  <link href="{{ url_for ('static', filename='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800') }}" rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for ('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+ <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/boot.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/songscss.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/trycss.css')}}">
+
+</head>
+
+<body>
+
+ <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top sticky" id="mainNav">
+    <div class="container">
+      <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+             {% if not username %}
+             <a class="nav-link">Hello, Please Login</a>
+             {% else %}
+             <a class="nav-link">Hello, {{username}}</a>
+             {% endif %}
+          </li>
+          {% if not username %}
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Admin Panel</a>
+          </li>
+          {% endif %}
+        </ul>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          {% if not username %}
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/songs/{{username}}">Genres</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/list/{{username}}/others">Artists</a>
+          </li>
+          {% endif %}
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/{{username}}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact/{{username}}">Contact</a>
+          </li>
+         {% if username %}
+          <li class="nav-item">
+          <div class="dropdown">
+  <button class="dropbtn">MyAccount <i class="fa fa-caret-down"></i></button>
+  <div class="dropdown-content">
+  <a class="nav-link" href="/profile/{{username}}">Profile <i class="fa fa-user" style="font-size: 1.4em;"></i></a>
+     <a class="nav-link" href="/password/{{username}}">Change Password <i class='fas fa-file-signature' style="font-size: 1.4em;"></i></a>
+     <a class="nav-link" href="/deactivate/{{username}}">Deactivate Account</a>
+    <a class="nav-link" href="/logout/{{username}}">Logout Session <i class="fas fa-sign-out-alt" style="font-size: 1.4em;"></i></a>
+  </div>
+</div>
+   </li>
+          {% endif %}
+          </ul>
+      </div>
+    </div>
+  </nav>
+
+{% if genre == "party" %}
+<header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/party.jpg')}}');">
+  {% elif genre == "mass" %}
+<header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/mass.jpg')}}');">
+  {% elif genre == "motivational" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/motivational.jpg')}}');">
+  {% elif genre == "broken" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/broken.jpg')}}');">
+  {% elif genre == "romantic" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/romantic.jpg')}}');">
+  {% elif genre == "melody" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/melody.jpg')}}');">
+    {% elif genre == "feelgood" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/feelgood.jpg')}}');">
+     {% elif genre == "anirudh" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/hanirudh.jpg')}}');">
+     {% elif genre == "harris" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/hharris.jpg')}}');">
+     {% elif genre == "sid" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/hsid.jpg')}}');">
+     {% elif genre == "thaman" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/hthaman2.jpg')}}');">
+     {% elif genre == "rahman" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/hrahman.jpg')}}');"> 
+    {% elif genre == "devi" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/hdevi.jpg')}}');"> 
+    {% elif genre == "ramajo" or genre == "krish" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/feelgood.jpg')}}');">
+    {% elif genre == "bgm" %}
+  <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/bgm2.jpg')}}');">
+    {% else %}
+    <header class="masthead" style="background-image: url('{{url_for ('static', filename='/img/sea.png')}}');">
+  {% endif %}
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1 class="myheadtitle" style="text-transform: uppercase;">{% if genre == "ramajo" %}
+                                      Ram
+                                      {% elif genre == "krish" %}
+                                      krishna
+                                      {% elif genre == "bgm" %}
+                                      bgms
+                                      {% else %}
+                                      {{genre}}
+                                      {% endif %}
+            </h1>
+            <span id="subhead" class="subheading"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <center>
+    {% if songs %}
+<div class="songstable">
+<table id="songslist">
+  <thead>
+    <tr>
+        <th>Song name</th>
+        <th>Movie name</th>
+        <th>Song Genre</th>
+        <th>Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+         {% for song in songs %}
+      {% set i=loop.index-1 %}
+      <tr>
+      <td>{{song.song_name}}</td>
+      <td>{{song.movie_name}}</td>
+      <td>{{song.genre}}</td>
+      <td><center><a target="_blank" class="songslink" href="/play/{{username}}/{{i}}"><i class="fas fa-play"></i></a></center></td>
+    </tr>
+    
+       {% endfor %}
+  </tbody>
+</table>
+<br>
+<div class="clearfix">
+          {% if check %}
+           <a class="songslink float-left" href="/otherlist/{{username}}/{{genre}}/{{prev}}">&larr; Previous Songs</a>
+          <a class="songslink float-right" href="/otherlist/{{username}}/{{genre}}/{{next}}">Next Songs &rarr;</a>
+          {% elif check2 %}
+          <a class="songslink float-left" href="/searchname/{{username}}/{{prev}}">&larr; Previous Songs</a>
+          <a class="songslink float-right" href="/searchname/{{username}}/{{next}}">Next Songs &rarr;</a>
+          {% else %}
+          <a class="songslink float-left" href="/list/{{username}}/{{genre}}/{{prev}}">&larr; Previous Songs</a>
+          <a class="songslink float-right" href="/list/{{username}}/{{genre}}/{{next}}">Next Songs &rarr;</a>
+          {% endif %}
+        </div>
+{% else %}
+<h2 style="font-family: sans-serif; font-weight: 70"> No songs present as per your request</h2>
+{% endif %}
+</div>
+</center>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="{{params['tw_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{params['fb_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{params['gb_url']}}" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Play-ON 2021</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for ('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for ('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{{ url_for ('static', filename='js/clean-blog.min.js')}}"></script>
+<script type="text/javascript">
+let subhead = document.querySelector('#subhead');
+let genre = '{{genre}}';
+if(genre == "party")
+  subhead.innerHTML = "Live the moment";
+else if(genre == "mass")
+subhead.innerHTML = "Beat the drums";
+else if(genre == "motivational")
+subhead.innerHTML = "Rise up against odds";
+else if(genre == "broken")
+subhead.innerHTML = "Feel the pain";
+else if(genre == "romantic")
+subhead.innerHTML = "Hold on within your heart";
+else if(genre == "feelgood")
+subhead.innerHTML = "Heal your heart";
+else
+subhead.innerHTML = "";
+  </script>
+</body>
+
+</html>

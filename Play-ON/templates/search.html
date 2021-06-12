@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+ 
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <!-- here the loop need to be start -->
+        {% if results %}
+        {% for post in results %}
+        <div class="post-preview">
+            <h2 class="post-title">
+              {{ post.title }}
+            </h2>
+            <h3 class="post-subtitle">
+              {{ post.tagline}}
+            </h3>
+          <p class="post-meta">Posted by
+            Admin on {{post.date}}</p>
+        </div>
+        {{post.content}}...
+       <hr>
+        {% endfor %}
+
+      
+        <hr>
+        {% else %}
+        	<p>No results found, please try using other keywords</p>
+
+       {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url(  '{{ url_for ('static', filename='img/home.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>PLAY - ON</h1>
+            <span class="subheading">A platform where music enters your heart</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+<form action="/searchname" method="post">
+  <label for="search_name">Search Song by song name</label>
+  <input type="text" name="song_name" id="search_name" placeholder="song name">
+  <button class="btn btn-primary">Search</button>
+</form>
+<form action="/searchlyrics" method="post">
+  <label for="search_lyrics">Search Song by lyrics</label>
+  <input type="text" name="song_lyrics" id="search_lyrics" placeholder="song lyrics">
+  <button class="btn btn-primary">Search</button>
+</form>
+</div>
+</div></div>
+        <!-- here the loop need to be start -->
+        {% for song in songs %}
+        <pre>
+{{song.song_name}} {{song.movie_name}} {{song.genre}} {% set location = '/songs/' + song.song_location %} 
+        <audio controls>
+  <source src="{{url_for('static', filename=location)}}" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+<a href="/play/{{username}}">Playme</a>
+</pre>
+       <hr>
+        {% endfor %}
+<script type="text/javascript">
+document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+            audios[i].pause();
+            audios[i].currentTime = 0
+        }
+    }
+}, true);
+</script>
+{% endblock %}

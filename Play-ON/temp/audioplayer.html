@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Custom Audio Player</title>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+	<link rel="stylesheet" type="text/css" href="customcss.css">
+</head>
+<body>
+<div class="container">
+  <div class="glow">
+    <div class="text-container">
+      <span class="text">Audio Play</span>
+      <br>
+      <span class="text">Coding and Stuff</span>
+      <br>
+      <div class="playback_controls">
+      <button onclick="skip('back')"><i class="fa fa-fast-backward"></i></button>
+      <button onclick="playpause()"><i class="fa fa-play"></i><i class="fa fa-pause"></i></button>
+      <button onclick="stop()"><i class="fa fa-stop"></i></button>
+      <button onclick="skip('fwd')"><i class="fa fa-fast-forward"></i></button>
+      </div>
+      <br>
+      <div id="seekbar">
+      <input type="range" oninput="setPos(this.value)" id="seek" value="0" max="">
+      </div>
+      <br>
+      <div class="volume_controls">
+      <button id="mute" onclick="mute()"><i class="fa fa-volume-up"></i></button>
+      <input type="range" id="volume" oninput="setVolume(this.value)" min="0" max="1" step="0.01" value="1">
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	var song = new Audio;
+var muted = false;
+var vol = 1;
+song.type = 'audio/mpeg';
+song.src = 'https://www.bensound.com/bensound-music/bensound-summer.mp3';//Audio file source url
+
+function skip(time) {
+   if (time == 'back') {
+     song.currentTime = (song.currentTime - 5);
+   } else if (time == 'fwd') {
+     song.currentTime = (song.currentTime + 5);
+   }
+}
+function playpause() {
+  if (!song.paused) {
+    song.pause();
+  } else {
+    song.play();
+  }
+}
+function stop() {
+  song.pause();
+  song.currentTime = 0;
+  document.getElementById('seek').value = 0;
+}
+function setPos(pos) {
+  song.currentTime = pos;
+}
+function mute() {
+  if (muted) {
+    song.volume = vol;
+    muted = false;
+    document.getElementById('mute').innerHTML = '<i class="fa fa-volume-up"></i>';
+  } else {
+    song.volume = 0;
+    muted = true;
+    document.getElementById('mute').innerHTML = '<i class="fa fa-volume-off"></i>';
+  }
+}
+function setVolume(volume) {
+  song.volume = volume;
+  vol = volume;
+}
+song.addEventListener('timeupdate',function() {
+  curtime = parseInt(song.currentTime,10);
+  document.getElementById('seek').max = song.duration;
+  document.getElementById('seek').value = curtime;
+})
+</script>
+</body>
+</html>

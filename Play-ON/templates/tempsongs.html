@@ -1,0 +1,15 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>My page for songs</title>
+ </head>
+ <body>
+ {% for song in songs %}
+   
+<p>{{song.song_name}} {{song.movie_name}} {{song.genre}} </p>
+
+       <hr>
+        {% endfor %}
+ </body>
+ </html>
+ 

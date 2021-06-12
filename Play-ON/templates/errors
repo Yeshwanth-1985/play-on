@@ -1,0 +1,15 @@
+Failed to load resource: the server responded with a status of 404 (NOT FOUND)
+20:184 Uncaught (in promise) DOMException: The element has no supported sources.
+playsong @ 0:184
+justplay @ 0:169
+onclick @ 0:45
+20:145 Uncaught TypeError: Cannot read property 'song_location' of undefined
+    at load_track (0:145)
+    at next_song (0:201)
+    at HTMLButtonElement.onclick (0:46)
+load_track @ 0:145
+next_song @ 0:201
+onclick @ 0:46
+0:149 A_Tribute_To_Indian_Army.mp3
+:5000/static/songs/A_Tribute_To_Indian_Army.mp3:1 GET http://127.0.0.1:5000/static/songs/A_Tribute_To_Indian_Army.mp3 404 (NOT FOUND)
+0:1 Uncaught (in promise) DOMException: Failed to load because no supported source was found.

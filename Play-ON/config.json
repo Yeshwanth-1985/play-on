@@ -1,0 +1,24 @@
+{
+  "params":
+  {
+    "blog_name": "Play-ON",
+    "admin_username": "yeshwanth",
+    "admin_password": "salaar",
+    "local_server": "True",
+    "local_uri": "mysql://root:@localhost/playon",
+    "prod_uri": "mysql://root:@localhost/playon",
+    "fb_url": "https://facebook.com",
+    "tw_url": "https://twitter.com",
+    "gb_url": "https://github.com",
+    "gmail_username": "chikkiyeshwanth@gmail.com",
+    "gmail_password": "Plmzaq0912@",
+    "about.text": "Hiii iam yeshwanth,this is our platform etc etc",
+    "no_of_posts": 6,
+    "upload_location": "C:\\Users\\YESHWANTH\\PycharmProjects\\Play-ON\\static",
+    "song_folder": "C:\\Users\\YESHWANTH\\PycharmProjects\\Play-ON\\static\\songs",
+    "image_folder": "C:\\Users\\YESHWANTH\\PycharmProjects\\Play-ON\\static\\songpics",
+    "mes": "enter the details",
+    "registermes": "enter your details for registration",
+    "mainadmin": "yeshwanth"
+  }
+}
